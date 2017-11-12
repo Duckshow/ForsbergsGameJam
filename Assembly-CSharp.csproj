@@ -46,6 +46,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\AutoKillParticles.cs" />
      <Compile Include="Assets\BodyController.cs" />
      <Compile Include="Assets\BoundaryManager.cs" />
      <Compile Include="Assets\CharacterMover.cs" />

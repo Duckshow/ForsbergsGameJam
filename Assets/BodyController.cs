@@ -18,7 +18,15 @@ public class BodyController : MonoBehaviour {
     public Sprite Eyes_OpenMouth;
     public Sprite Body;
 
-	void Start(){
+    public AudioClip[] OpenMouthSounds;
+    private AudioSource audio;
+
+
+    void Awake() {
+        audio = GetComponent<AudioSource>();
+    }
+
+    void Start(){
         RendererBody.sprite = Body;
         RendererEyes.sprite = Eyes_Default;
 
@@ -34,7 +42,12 @@ public class BodyController : MonoBehaviour {
 		if (b){
     	    RendererEyes.sprite = Eyes_OpenMouth;
 	        TransformMouth.gameObject.SetActive(true);
-		}
+
+			if (!audio.isPlaying){
+    	        audio.clip = OpenMouthSounds[Random.Range(0, OpenMouthSounds.Length)];
+	            audio.Play();
+			}
+        }
 		else{
 			RendererEyes.sprite = Eyes_Default;
             TransformMouth.gameObject.SetActive(false);

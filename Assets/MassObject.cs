@@ -25,6 +25,11 @@ public class MassObject : MonoBehaviour {
     private Vector3 EatenScaleStart;
     private Vector3 EatenPositionStart;
 
+    public GameObject ExplosionParticles;
+
+    public AudioClip[] RandomSounds;
+    private AudioSource audio;
+
 
     void Awake() {
 		if(CharacterInstance == null && GetComponent<CharacterMover>() != null)
@@ -33,6 +38,7 @@ public class MassObject : MonoBehaviour {
         MyRigidBody = GetComponent<Rigidbody2D>();
         MyRenderer = GetComponent<Renderer>();
         MyMouth = GetComponent<Mouth>();
+        audio = GetComponent<AudioSource>();
     }
     void OnEnable() {
         AllMassObjects.Add(this);
@@ -64,6 +70,13 @@ public class MassObject : MonoBehaviour {
 		if (Input.GetKeyDown(KeyCode.P)){
             Debug.Break();
         }
+
+		if (CurrentState == StateEnum.Default){
+			if (Random.value < 0.001f){
+                audio.clip = RandomSounds[Random.Range(0, RandomSounds.Length)];
+                audio.Play();
+            }
+		}
 
 		if(IsVisibleOnScreen())
             JustStarted = false;
@@ -131,6 +144,7 @@ public class MassObject : MonoBehaviour {
 
         PlanetSpawner.Instance.RemovePlanetFromGame(MouthEatingThis.MyMassObject);
         MouthEatingThis = null;
+        Instantiate(ExplosionParticles, transform.position, Quaternion.identity);
     }
     public void Eat(Mouth _mouth){
         MouthEatingThis = _mouth;
