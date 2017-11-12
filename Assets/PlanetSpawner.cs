@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlanetSpawner : MonoBehaviour {
 
     public const int PLANET_SIZE_MIN = 1;
-    public const int PLANET_SIZE_MAX = 100;
+    public const int PLANET_SIZE_MAX = 10;
 
     public static PlanetSpawner Instance;
 

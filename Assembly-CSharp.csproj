@@ -46,12 +46,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\BodyController.cs" />
      <Compile Include="Assets\BoundaryManager.cs" />
-     <Compile Include="Assets\CameraZoom.cs" />
      <Compile Include="Assets\CharacterMover.cs" />
      <Compile Include="Assets\MassObject.cs" />
      <Compile Include="Assets\Mouth.cs" />
      <Compile Include="Assets\PlanetSpawner.cs" />
+     <Compile Include="Assets\RandomizeSpriteColor.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

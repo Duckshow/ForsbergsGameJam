@@ -17,7 +17,6 @@ public class MassObject : MonoBehaviour {
     public bool JustStarted = false;
     public float Mass = 1f;
 
-
     public enum StateEnum { Default, Eating, BeingEaten, WaitCounterAttack, Volcano }
     public StateEnum CurrentState = StateEnum.Default;
     private Mouth MouthEatingThis;
@@ -25,6 +24,7 @@ public class MassObject : MonoBehaviour {
     private Transform EatenTarget;
     private Vector3 EatenScaleStart;
     private Vector3 EatenPositionStart;
+
 
     void Awake() {
 		if(CharacterInstance == null && GetComponent<CharacterMover>() != null)
@@ -156,7 +156,7 @@ public class MassObject : MonoBehaviour {
 
         Mass = _mass;
         transform.localScale = new Vector3(_mass, _mass, 1);
-        MyRigidBody.mass = _mass;
+        MyRigidBody.mass = _mass * 10;
 
         if (this == CharacterInstance) {
             BoundaryManager.Instance.SetCameraSize(Mathf.RoundToInt(Mass));

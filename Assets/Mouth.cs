@@ -6,6 +6,7 @@ public class Mouth : MonoBehaviour {
 
     public MassObject MyMassObject;
     public List<MassObject> ThingsBeingEaten = new List<MassObject>();
+    private BodyController MyBodyController;
 
     public Transform MouthRenderer;
     public float MouthMinSize = 0.1f;
@@ -14,6 +15,7 @@ public class Mouth : MonoBehaviour {
 
     void Awake() {
         MyMassObject = GetComponent<MassObject>();
+        MyBodyController = GetComponent<BodyController>();
     }
 
 	void Update () {
@@ -58,12 +60,12 @@ public class Mouth : MonoBehaviour {
                 }
 			}
         }
-		MouthRenderer.gameObject.SetActive(_shouldHaveOpenMouth);
+        MyBodyController.OpenMouth(_shouldHaveOpenMouth);
 
         // unless something's going into the mouth, adjust the size of it
         if (_shouldHaveOpenMouth && ThingsBeingEaten.Count == 0){
             float _lerp = Mathf.Lerp(MouthMaxSize, MouthMinSize, _closest / _maxDist);
-            Vector3 _size = new Vector3(_lerp, 1, _lerp);
+            Vector3 _size = new Vector3(_lerp, _lerp, 1);
             MouthRenderer.transform.localScale = _size;
         }
 	}
@@ -73,8 +75,8 @@ public class Mouth : MonoBehaviour {
         MyMassObject.SetMass(MyMassObject.Mass + _mo.Mass);
 
 		if (ThingsBeingEaten.Count == 0){
-			MouthRenderer.transform.localScale = new Vector3(MouthMinSize, 1, MouthMinSize);
-			MouthRenderer.gameObject.SetActive(false);
+			MouthRenderer.transform.localScale = new Vector3(MouthMinSize, MouthMinSize, 1);
+            MyBodyController.OpenMouth(false);
             MyMassObject.CurrentState = MassObject.StateEnum.Default;
         }
     }
